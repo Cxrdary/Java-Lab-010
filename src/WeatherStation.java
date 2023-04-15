@@ -64,4 +64,22 @@ public class WeatherStation {
         this.pressure = WeatherStation.hPaToInHG(main.get("pressure").getAsFloat());
         notifyDisplays();
     }
+    public static void main(String[] args) {
+        WeatherStation weatherStation = new WeatherStation();
+
+        CurrentConditions currentConditions = new CurrentConditions(weatherStation);
+        StatisticsDisplay statisticsDisplay = new StatisticsDisplay(weatherStation);
+        ForecastDisplay forecastDisplay = new ForecastDisplay(weatherStation);
+
+        weatherStation.registerDisplay(currentConditions);
+        weatherStation.registerDisplay(statisticsDisplay);
+        weatherStation.registerDisplay(forecastDisplay);
+
+        try {
+            weatherStation.measure();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+// I think it's working mostly it returns the output twice but I'm not entirely sure how I would correct this.
